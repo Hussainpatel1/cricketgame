@@ -1,0 +1,63 @@
+body {
+    background-image: url(images/backimage2.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+#button-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.choice-btn {
+    height: 70px;
+    width: 70px;
+    border: none;
+    border-radius: 50px;
+    background-color: aqua;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.choice-img {
+    height: 55px;
+}
+
+.choice-rest-image {
+    height: 70px;
+    border-radius: 50px;
+}
+
+.choice-btn:hover {
+    background-color: bisque;
+}
+
+.result-tag {
+    color: white;
+    background-color: black;
+    font-size: 20px;
+    font-weight: lighter;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.result-span {
+    font: 20px;
+    font-weight: bold;
+    color: red;
+}

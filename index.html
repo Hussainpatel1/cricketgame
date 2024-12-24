@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THE CRICKET GAME</title>
+    <link rel="icon" type="image/png" href="images/logocricket.webp" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div id="container">
+      <h1>Bat , Ball , Stump Game.</h1>
+      <div id="button-container">
+        <button class="choice-btn" onclick="bat()">
+          <img class="choice-img" src="images/bat.png" alt="bat-image" />
+        </button>
+        <button class="choice-btn" onclick="ball()">
+          <img class="choice-img" src="images/ball.png" alt="ball-image" />
+        </button>
+        <button class="choice-btn" onclick="stump()">
+          <img class="choice-img" src="images/stump.png" alt="stump-image" />
+        </button>
+      </div>
+
+      <p class="result-tag">
+        You have chosen: <span class="result-span" id="user-move"></span>
+      </p>
+      <p class="result-tag">
+        Computer choice is: <span class="result-span" id="computer-move"></span>
+      </p>
+      <p class="result-tag">
+        User: <span class="result-span" id="result"></span>
+      </p>
+      <p class="result-tag">
+        Score: <span class="result-span" id="score"></span>
+      </p>
+
+      <button class="choice-btn" onclick="localStorage.clear(), resetScore()">
+        <img
+          class="choice-rest-image"
+          src="images/reset.webp"
+          alt="bat-image"
+        />
+      </button>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
