@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Course Results</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f9f9f9;
+      }
+
+      .course-item {
+        background-color: #fff;
+        padding: 20px;
+        border: 2px solid black;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .course-item img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 10px;
+      }
+
+      .course-item h3 {
+        font-size: 20px;
+        margin-top: 0;
+      }
+
+      .course-item p {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .course-item a {
+        text-decoration: none;
+        color: white;
+        font-size: 16px;
+        border: 2px solid #337ab7;
+        border-radius: 5px;
+        padding: 4px;
+        background: #337ab7;
+      }
+
+      .course-item a:hover {
+        background-color: #23527c;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Course Results</h1>
+    <div class="course-list"></div>
+
+    <script>
+    
+      const courseList = document.querySelector(".course-list");
+      const filteredCourses = JSON.parse(
+        localStorage.getItem("filteredCourses")
+      );
+
+      if (filteredCourses && filteredCourses.length > 0) {
+        filteredCourses.forEach((course) => {
+          const courseItem = document.createElement("div");
+          courseItem.className = "course-item";
+
+          courseItem.innerHTML = `
+            <img src="${course.image}" alt="${course.title}" class="course-image">
+            <h3>${course.title}</h3>
+            <p><strong>Description:</strong> ${course.Description}</p>
+
+<p><strong>Platform:</strong> ${course.Platform}</p>
+       
+            <a href="${course.link}" target="_blank">Go to Course</a>
+          `;
+
+          courseList.appendChild(courseItem);
+        });
+      } else {
+        courseList.innerHTML =
+          "<p>No courses found matching your criteria.</p>";
+      }
+    </script>
+  
+  </body>
+</html>
