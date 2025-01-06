@@ -1,49 +1,310 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>THE CRICKET GAME</title>
-    <link rel="icon" type="image/png" href="images/logocricket.webp" />
-    <link rel="stylesheet" href="index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Professional Course Finder</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
+  <style>
+*{
+  margin:0px;
+  padding:0px;
+  text-decoration: none;
+}
+  .header {
+    background:#8E8E90;
+    padding:10px;
+    display:flex;
+    justify-content: space-between;
+    font-weight: bold;
+  }
+  .header a {
+    color: black ;
+    font-weight: bold;
+  }
+ .main  h3 {
+   margin: 20px 10px 20px 10px;
+   text-align: center;
+   color:white;
+   font-size: 15px;
+ }
+
+ #me {
+   background:#895F40;
+   height:100vh;
+   background: url("https://i.ibb.co/FqfLxPp/Screenshot-20250102-160546-2.png") no-repeat center/cover; 
+ }
+ .footer {
+   display:flex;
+   align-items:flex-end;
+   justify-content: center;
+   height:calc(100vh - 145px);
+ }
+</style>
+
   <body>
-    <div id="container">
-      <h1>Bat , Ball , Stump Game.</h1>
-      <div id="button-container">
-        <button class="choice-btn" onclick="bat()">
-          <img class="choice-img" src="images/bat.png" alt="bat-image" />
-        </button>
-        <button class="choice-btn" onclick="ball()">
-          <img class="choice-img" src="images/ball.png" alt="ball-image" />
-        </button>
-        <button class="choice-btn" onclick="stump()">
-          <img class="choice-img" src="images/stump.png" alt="stump-image" />
-        </button>
+    <div id="me">
+  <div class="header">
+    <a href="">Home</a>
+    <a href="">contact us</a>
+  </div>
+  <div class="main">
+    <div class="container">
+      <h1>Professional Course Finder</h1>
+      <div class="filter-section">
+        <select id="category">
+          <option value="">Select Category</option>
+          <option value="Information Technology">Information Technology</option>
+          <option value="Business & Entrepreneurship">
+            Business & Entrepreneurship
+          </option>
+          <option value="Healthcare & Wellness">Healthcare & Wellness</option>
+          <option value="Art & Humanities">Art & Humanities</option>
+          <option value="Environmental Studies">
+            Environmental Studies
+          </option></select
+        ><br />
+
+        <select id="course-type">
+          <option value="">Select Course Type</option>
+          <option value="Paid">Paid</option>
+          <option value="Free">Free</option></select
+        ><br />
+        <button id="find-course-btn">Find Course</button>
       </div>
-
-      <p class="result-tag">
-        You have chosen: <span class="result-span" id="user-move"></span>
-      </p>
-      <p class="result-tag">
-        Computer choice is: <span class="result-span" id="computer-move"></span>
-      </p>
-      <p class="result-tag">
-        User: <span class="result-span" id="result"></span>
-      </p>
-      <p class="result-tag">
-        Score: <span class="result-span" id="score"></span>
-      </p>
-
-      <button class="choice-btn" onclick="localStorage.clear(), resetScore()">
-        <img
-          class="choice-rest-image"
-          src="images/reset.webp"
-          alt="bat-image"
-        />
-      </button>
     </div>
+    <script>
+    
+  const findCourseBtn = document.querySelector("#find-course-btn");
+      const categorySelect = document.querySelector("#category");
+    
+      const courseTypeSelect = document.querySelector("#course-type");
 
-    <script src="index.js"></script>
+      const courses = [
+        {
+          title: "CS50's Introduction to Computer Science",
+          category: "Information Technology",
+          type: "Free",
+Description: "A broad and robust understanding of computer science and programming, how to think algorithmically and solve programming problems efficiently.",
+ Platform:"EDX",
+          link: "https://cs50.harvard.edu/",
+          image:
+            "https://ccitraining.edu/wp-content/uploads/2023/12/Information-Technology.jpg",
+        },
+        {
+          title: "Web Development Basics",
+          category: "Information Technology",
+          type: "Paid",
+          Description: "HyperText Markup Language (HTML) and Cascading Style Sheets (CSS) are the building blocks of a website. Incredibly versatile, these coding languages provide the foundation for a website’s text styles, colors, images, and “look and feel,” known as the theme.",
+          Platform: "Udemy",
+          link: "https://www.edx.org/learn/computer-science/ibm-guided-project-web-development-w-html-css-for-beginners?index=product&queryID=d3b7fadf8901acea3dc60500ccb88b8e&position=2&results_level=first-level-results&term=Web+Development+Basics&objectID=course-40eabb04-17b3-430d-85e8-3f2ef697417e&campaign=Guided+Project%3A+Web+Development+w%2F+HTML+%26+CSS+for+Beginners&source=edX&product_category=course&placement_url=https%3A%2F%2Fwww.edx.org%2Fsearch",
+          image:
+            "https://futureskillsprime.in//sites/default/files/2021-04/web-development.jpg",
+        },
+        {
+          title: "Introduction to Cyber Security",
+          category: "Information Technology",
+          type: "Paid",
+          Description: "Cyber Security is one in every of cutting-edge most up to date profession fields. This course will provide a wide overview of Cyber Security concepts and practices. Beginning with underlying fundamentals of cyber security, additional lessons discover centre technologies along with encryption, sandboxing, and antiviruses. Securing your Wordpress website and your online identity is likewise featured, as are secure online transactions, email security, and how to conduct cyber activities.",
+          Platform: "EDX",
+          link: "https://www.udemy.com/course/certified-secure-netizen/",
+          image:
+            "https://static.vecteezy.com/system/resources/thumbnails/006/950/568/small_2x/cyber-security-data-protection-business-concept-on-virtual-screen-shield-protect-icon-in-wireframe-robotic-hand-antivirus-interface-illustration-vector.jpg",
+        },
+        {
+          title: "Google it Automation with Python",
+          category: "Information Technology",
+          type: "Free",
+          Description: "Python is a programming language is well-known for being dynamic and simple to use, mainly because it allows the programmers to use a method rich in styles, instead of doing in a specific way. It also features the possibility of extending over other customization interfaces.",
+          Platform: "Udemy",
+          link: 'https://www.udemy.com/course/python-from-beginner-to-expert-starter-free/"',
+          image:
+            "https://fabiopacifici.com/wp-content/uploads/2020/02/Learn_python_with_google_image.jpg",
+        },
+        {
+          title: "Entrepreneurship in Emerging Economies",
+          category: "Business & Entrepreneurship",
+          type: "Paid",
+          Description: "An awareness of the opportunities for entrepreneurship in fast-growing emerging markets, An understanding of a conceptual framework for evaluating such opportunities,An appreciation of the types of problems that lend themselves to entrepreneurial solutions",
+          Platform: "EDX",
+          link: "https://www.edx.org/learn/entrepreneurship/harvard-university-entrepreneurship-in-emerging-economies?index=product&queryID=21417bef07b01d1e4db67bdf56f80eee&position=4&linked_from=autocomplete&c=autocomplete",
+          image: "https://i.ibb.co/82NgwFg/Screenshot-20241229-173358-2.png",
+        },
+
+        {
+          title: "Innovation for Entrepreneurs",
+          category: "Business & Entrepreneurship",
+          type: "Free",
+          Description: "Starting a business can be overwhelming, especially if you’re new to the world of startups. Module 1, Introduction to Startups, is crafted to guide you through the essential concepts and strategies that form the foundation of any successful venture. Over the course of six segments, we’ll break down complex ideas into actionable steps that will help you validate your business idea, understand various business models, and prepare you for the journey ahead.",
+          Platform: "EDX",
+          link: "https://www.udemy.com/course/60-day-startup-introduction-to-startups/",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVVLqGASMUSkTAdxM10lNP1QXEqxpsX6U1hw&s",
+        },
+        {
+          title: "Fundamentals of Digital Marketing",
+          category: "Business & Entrepreneurship",
+          type: "Paid",
+          Description: "This course was made as a First hands-on material for those who are looking for core concepts about the digital marketing and the e-commerce Industry, Is a full mixure of Different material - Slides, Videos, Articles and Why not Survey!",
+          Platform: "Udemy",
+          link: "https://www.udemy.com/course/the-fundamentals-of-the-digital-marketing/",
+          image:
+            "https://www.springboard.com/blog/wp-content/uploads/2022/06/what-is-digital-marketing.png",
+        },
+        {
+          title: "Business Fundamental",
+          category: "Business & Entrepreneurship",
+          type: "Free",
+          Description: "Do you speak 'business'?,you will. This course is designed to give you the terminology, concepts and frameworks necessary to understand businesses, to unpack their constituent parts, and to build your own tool-kit for strategy and decision-making.",
+          Platform: "Udemy",
+          link: "https://www.edx.org/learn/business-administration/university-of-british-columbia-business-foundations?index=product&queryID=391d5f0e1c09959a429b133c779c9890&position=1&results_level=first-level-results&term=business+fundamentals&objectID=course-1c30e9b3-78ee-4c57-9af9-922153073d99&campaign=Business+Foundations&source=edX&product_category=course&placement_url=https%3A%2F%2Fwww.edx.org%2Fsearch",
+          image:
+            "https://online.hbs.edu/Style%20Library/api/resize.aspx?imgpath=/PublishingImages/Business%20Fundamentals.jpg&w=1200&h=630",
+        },
+        {
+          title: "Introduction to Psychology",
+          category: "Healthcare & Wellness",
+          type: "Free",
+          Description: "Psychology is the academic and applied study of the human mind and behavior. Perhaps there are no more salient topics in the information age and the global economy than a comprehensive understanding of how learning takes place and what predicts and determines human behavior. The course is a primer, meant to provide substantive content through which to understand the human condition and to inspire students to continue their learning and growth.",
+          Platform: "EDX",
+          link: "https://www.edx.org/learn/python/st-margarets-episcopal-school-introduction-to-psychology?index=product&queryID=8f57a3b8e1f080ee7583bb6dcd9566f3&position=2&results_level=first-level-results&term=introduction+to+pyschology&objectID=course-1580c6c4-5a81-4a79-bf35-bb4dddfb891f&campaign=Introduction+to+Psychology&source=edX&product_category=course&placement_url=https%3A%2F%2Fwww.edx.org%2Fsearch",
+          image:
+            "https://blogs.longwood.edu/edwinelleportfolio/files/2016/12/blog-examprep-061913.jpg",
+        },
+        {
+          title: "COVID-19: Trackling the Novel Coronavirus",
+          category: "Healthcare & Wellness",
+          type: "Free",
+          Description: "The goal of this course is to help you maintain mental health and psychological well-being during isolation, quarantine, stress and anxiety due to Covid-19 (Coronavirus), as well as make good use of your time at home, including doing things that help you learn, grow, and thrive.",
+          Platform: "Udemy",
+          link: "https://www.udemy.com/course/mental-health-for-coping-with-stress-anxiety-covid-19/",
+          image:
+            "https://www.statnews.com/wp-content/uploads/2020/02/Coronavirus-CDC-645x645.jpg",
+        },
+        {
+          title: "Health Informatics on FHIR",
+          category: "Healthcare & Wellness",
+          type: "Paid",
+          Description: "Working familiarity with the major health care data standards, Awareness of the web-based tools for accessing the data standards, HL7 as the global health care interoperability standards organization, HL7 interoperability standards history",
+          Platform: "EDX",
+          link: "https://www.edx.org/learn/health-informatics/the-georgia-institute-of-technology-health-informatics-data-and-interoperability-standards?index=product&queryID=6c8de4b7d5aa6dc5c3480b7b6d1868d3&position=1&results_level=first-level-results&term=Health+Informatics+on+FHIR&objectID=course-e3933140-d4dc-4a6a-bf08-4e068cc5609e&campaign=Health+Informatics%3A+Data+and+Interoperability+Standards&source=edX&product_category=course&placement_url=https%3A%2F%2Fwww.edx.org%2Fsearch",
+          image:
+            "https://www.onyxhealth.io/wp-content/uploads/2021/02/fhir-1.png",
+        },
+        {
+          title: "Nutrition and Health: Micronutrients and Overnutrition",
+          category: "Healthcare & Wellness",
+          type: "Paid",
+          Description: "Food plays a central role in our society but few people actually understand what it does to our bodies. Learn more about nutrition and how our diet profoundly impacts our current and future health. This introductory nutrition course addresses the relationship between nutrition and human health with a focus on health problems related to overnutrition.",
+          Platform: "EDX",
+          link: "https://www.edx.org/learn/nutrition/wageningen-university-research-nutrition-and-health-macronutrients-and-overnutrition?index=product&queryID=3a8f18279511ec67a15e1d6d9c96bbca&position=1&results_level=first-level-results&term=Nutrition+and+Health%3A+Macronutrients+and+Overnutrition&objectID=course-c2f0c9cd-6577-4f38-8a31-56c8dd1cf2a4&campaign=Nutrition+and+Health%3A+Macronutrients+and+Overnutrition&source=edX&product_category=course&placement_url=https%3A%2F%2Fwww.edx.org%2Fsearch",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2ACuGHpVzK7aiL7VtielvqPBgBgacxh9uUQ&s",
+        },
+        {
+          title: "Modern Art & Ideas",
+          category: "Art & Humanities",
+          type: "Free",
+          Description: "This course distills semesters of art school into series of fun, engaging and succinct lessons. We’ll go over all of the core concepts and terminology that you’ll need to start understanding and creating art like a professional and I’ll even teach you my habits for success! Anyone who has a passion for art, but may not know all of the technical terminology or concepts - you have come to the right place.",
+          Platform: "Udemy",
+          link: "https://www.udemy.com/course/art-fundamentals-in-one-hour/",
+          image:
+            "https://cdn.mos.cms.futurecdn.net/7YrobQvFFzw8aWsAUtoYXB-650-80.jpg.webp",
+        },
+        {
+          title: "Shakespeare’s Life and Work",
+          category: "Art & Humanities",
+          type: "Free",
+          Description: "Moving between the world in which Shakespeare lived and the present day, this course will introduce different kinds of literary analysis that you can use when reading Shakespeare. With short videos filmed on location in England and readings covering topics like Shakespeare's contemporaries and the politics of modern performance, you will learn a range of critical tools that you can use to unlock the meaning and relevance of Shakespeare’s plays.",
+          Platform: "EDX",
+          link: "https://www.edx.org/learn/shakespeare/harvard-university-shakespeare-s-life-and-work?index=product&queryID=79c2392a4919e70fb6d143d3345533ce&position=1&results_level=first-level-results&term=Shakespeare%E2%80%99s+Life+and+Work&objectID=course-36eb1cb5-abab-4f1c-b9f7-1c386f5b11e7&campaign=Shakespeare%27s+Life+and+Work&source=edX&product_category=course&placement_url=https%3A%2F%2Fwww.edx.org%2Fsearch",
+          image:
+            "https://cdn.thecollector.com/wp-content/uploads/2024/08/top-plays-william-shakespeare.jpg?width=1400&quality=70",
+        },
+        {
+          title: "Introduction to Philosophy",
+          category: "Art & Humanities",
+          type: "Free",
+          Description: "The goal of this course is to help you maintain mental health and psychological well-being during isolation, quarantine, stress and anxiety due to Covid-19 (Coronavirus), as well as make good use of your time at home, including doing things that help you learn, grow, and thrive.",
+          Platform:"Udemy",
+          link: "https://www.udemy.com/course/mental-health-for-coping-with-stress-anxiety-covid-19/",
+          image:
+            "https://philosophyawayoflife.com/wp-content/uploads/2021/10/philosophy-a-way-of-life-ph.jpg?w=1000",
+        },
+        {
+          title: "File, Images & Historical Interpretation",
+          category: "Art & Humanities",
+          type: "Paid",
+          Description: "In this course you will learn more about the history of motion pictures and basic techniques of cinematography, lighting, and film genres. By the end of this course you will learn the most important aspects and the basic knowledge which you must know to become a great Filmmaker. We have condensed several years of knowledge into this easy seven video course.",
+          Platform: "Udemy",
+          link: "https://www.udemy.com/course/filmschoolcinema101/",
+          image:
+            "https://www.thoughtco.com/thmb/LSSFSX6XnWWvyJieTJ_Vk_INrqE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-654313960-5c532556c9e77c00014b0273.jpg",
+        },
+        {
+          title: "Biodiversity and Conservation",
+          category: "Environmental Studies",
+          type: "Free",
+          Description: "Principles of atmospheric science, Climate data collection and interpretation, Zero-dimensional Energy Balance Models, One-dimensional Energy Balanced Models, General Circulation Models",
+          Platform: "EDX",
+          link: "https://www.edx.org/learn/climate-change/sdg-academy-climate-change-the-science-and-global-impact?index=product&queryID=e7325c8c18588dcef7ff21cbeaa01beb&position=1&results_level=first-level-results&term=Climate+Change&objectID=course-32779451-9094-45c8-9805-505bfe77ae02&campaign=Climate+Change%3A+The+Science+and+Global+Impact&source=edX&product_category=course&placement_url=https%3A%2F%2Fwww.edx.org%2Fsearch",
+          image:
+            "https://d2jx2rerrg6sh3.cloudfront.net/image-handler/ts/20211112073341/ri/673/picture/2021/11/shutterstock_1127223938.jpg",
+        },
+        {
+          title: "Introduction to Environmental Law and Policy",
+          category: "Environmental Studies",
+          type: "Free",
+          Description: "Theoretical and conceptual understanding of environmental DNA, The role and potential of eDNA in biodiversity research, Designing an eDNA sampling strategy, How to perform eDNA sampling methods and procedures in the natural environment,The scientific rationale and course of action taken in the lab environment, focusing predominantly on metabarcoding",
+          Platform: "EDX",
+          link: "https://www.edx.org/learn/ecosystems/ethx-environmental-dna-sensing-the-diversity-of-life-and-assessing-ecosystem-health?index=product&queryID=086404033b906d96cc0eb17afc3ac5a3&position=1&results_level=first-level-results&term=Biodiversity+and+Conservation&objectID=course-66aff7f5-721e-496e-9e85-4c62ded67880&campaign=Environmental+DNA%3A+Sensing+the+Diversity+of+Life+and+Assessing+Ecosystem+Health&source=edX&product_category=course&placement_url=https%3A%2F%2Fwww.edx.org%2Fsearch",
+          image:
+          "https://www.euroschoolindia.com/wp-content/uploads/2024/02/What-is-Biodiversity-Importance-Ways-To-Conserve.jpg",
+        },
+        {
+          title: "The Science of Climate Change",
+          category: "Environmental Studies",
+          type: "Paid",
+          Description: "Gain a deeper understanding of fundamental theories of governance and planning impacting urban climate mitigation and adaptation.Comprehend the relationships between multi-level governance and multi-level climate risk assessment.Improve understanding of the operation of actors and systems involved in structuring policy and urban planning in response to climate change.",
+          Platform: "EDX",
+          link: "https://www.edx.org/learn/climate-change/massachusetts-institute-of-technology-cities-and-climate-change-mitigation-and-adaptation?index=product&queryID=ab7f2c0e7b9545c7d914b57028209602&position=1&results_level=first-level-results&term=Environmental+Law+and+Policy&objectID=course-6101ee5b-bd7a-4ce0-b229-949de6bf28dd&campaign=Cities+and+Climate+Change%3A+Mitigation+and+Adaptation&source=edX&product_category=course&placement_url=https%3A%2F%2Fwww.edx.org%2Fsearch",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL35uKzT0OBe8ifg11BKOLwIn--kZi3ShLBw&s",
+        },
+        {
+          title: "Global Environmental Management",
+          category: "Environmental Studies",
+          type: "Paid",
+          Description: "Environmental issues affect every human being, and are a truly global concern. This four-week course, presented by CQUniversity, gives a comprehensive introduction not only to the current problems and threats to the environment but also to possible solutions and effective environmental management.",
+          Platform:"Future Learn",
+          link: "https://www.futurelearn.com/courses/introduction-to-environmental-science",
+          image:
+            "https://media.istockphoto.com/id/1413930025/photo/crystal-globe-putting-on-moss-esg-icon-for-environment-social-and-governance.jpg?s=612x612&w=0&k=20&c=AfK7HKFtO8yy6JE557Agw6GJXojjMJWlH2lrGM_RD2o=",
+        },
+      ];
+      
+      findCourseBtn.addEventListener("click", () => {
+ 
+        const selectedCategory = categorySelect.value;
+
+        const selectedType = courseTypeSelect.value;
+
+        const filteredCourses = courses.filter((course) => {
+          return (
+  (!selectedCategory || course.category === selectedCategory) &&
+  
+  (!selectedType || course.type === selectedType)
+          );
+        });
+
+        localStorage.setItem(
+          "filteredCourses",
+          JSON.stringify(filteredCourses)
+        );
+
+        window.location.href = "result.html";
+      });
+    </script>
   </body>
 </html>
